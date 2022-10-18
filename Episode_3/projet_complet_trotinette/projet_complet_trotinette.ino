@@ -5,17 +5,17 @@
 Adafruit_MPU6050 mpu;
 
 #include <SoftwareSerial.h>
-#define ARDUINO_RX 5//should connect to TX of the Serial MP3 Player module
-#define ARDUINO_TX 6//connect to RX of the module
-SoftwareSerial mySerial(ARDUINO_RX, ARDUINO_TX);//init the serial protocol, tell to myserial wich pins are TX and RX
-static int8_t Send_buf[8] = {0} ;//The MP3 player undestands orders in a 8 int string
-                                 //0X7E FF 06 command 00 00 00 EF;(if command =01 next song order) 
+#define ARDUINO_RX 5// Pin 5 de l'arduino vers le TX du MP3
+#define ARDUINO_TX 6//Pin 6 vers le RX du MP3
+
+SoftwareSerial mySerial(ARDUINO_RX, ARDUINO_TX);// Initialise le protocole serie en recupérant les pin  TX et RX.
+static int8_t Send_buf[8] = {0} ;//On envoie des ordres en  8 int sur le MP3  //0X7E FF 06 command 00 00 00 EF;(if command =01 next song order) 
 #define NEXT_SONG 0X01 
 #define PREV_SONG 0X02 
-#define CMD_PLAY_W_INDEX 0X03 //DATA IS REQUIRED (number of song)
+#define CMD_PLAY_W_INDEX 0X03 //Donnée obligatoire,nombre de fichiers sur la carte SD.
 #define VOLUME_UP_ONE 0X04
 #define VOLUME_DOWN_ONE 0X05
-#define CMD_SET_VOLUME 0X06//DATA IS REQUIRED (number of volume from 0 up to 30(0x1E))
+#define CMD_SET_VOLUME 0X06// Donnée obligatoire, volume de sortie entre 0 et 30(0x1E)
 #define SET_DAC 0X17
 #define CMD_PLAY_WITHVOLUME 0X22 //data is needed  0x7E 06 22 00 xx yy EF;(xx volume)(yy number of song)
 #define CMD_SEL_DEV 0X09 //SELECT STORAGE DEVICE, DATA IS REQUIRED
@@ -41,7 +41,7 @@ void setup(void) {
   //while (!Serial) {
   //delay(10); // will pause Zero, Leonardo, etc until serial console opens
   //}
-  if (!mpu.begin()) {
+  if (!mpu.begin()) { // important , initialise le MPU6050 !!
     Serial.println("Failed to find MPU6050 chip");
     while (1) {
       delay(10);
