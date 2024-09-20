@@ -1,5 +1,5 @@
 {
     "ip": "192.168.1.1",
     "port": 9090,
-    "payload_path": ""
+    "payload_path": "/workspaces/fixoulab/PS4/PS4-Payload-Loader/"
 }
